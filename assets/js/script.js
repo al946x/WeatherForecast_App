@@ -15,8 +15,11 @@
     - If search history is not empty, output each city to the search history display in the DOM
 */
 
-var apiKey = 'your api key';
+var apiKey = '07d2b35b0cfc6919c8c403dd4beaa059';
 var city = 'London';
+var baseURL = 'https://api.openweathermap.org/data/2.5/';
+var weatherURL = baseURL + `weather?&appid=${apiKey}&units=metric&`;
+var forecastURL = baseURL + `forecast?&appid=${apiKey}&units=metric&`;
 
 $.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
   .then(function (currentData) {
