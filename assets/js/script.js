@@ -23,6 +23,7 @@ var forecastURL = baseURL + `forecast?&appid=${apiKey}&units=metric&`;
 var iconURL = 'https://openweathermap.org/img/w/'
 var cityURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 var foreCastURL = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric`;
+var apiURL = `http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=${apiKey}`;
 var lon = currentData.coord.lon;
 var lat = currentData.coord.lat;
 var todayIcon = $('.today-wicon');
