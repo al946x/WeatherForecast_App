@@ -5,119 +5,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href= "assets/css/style.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style> @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap'); </style>
+
   <title>Weather Dashboard</title>
 </head>
 
 <body>
-  <header class="container-fluid text-center text-white bg-dark p-2 weather-header">
-    <h1>Weather Dashboard</h1>
-  </header>
-
-  <!-- max-width for ultra wide resolutions -->
-  <div class="container-fluid" style="max-width: 1400px">
-    <div class="row mt-3">
-      <aside class="col-lg-3 pb-3">
-        <h2 id="form-heading" class="mt-1 h3 form-label">
+  <div class="grid">
+    <header class="page-header">
+        <h1>Weather Forecast Dashboard</h1>
+    </header>
+    <aside class="page-leftbar">
+      <div class="content">
+        <h2 class="side-bar">
           Search for a City:
         </h2>
-        <form id="search-form" class="form">
-          <div class="form-inline form-group">
-            <div class="input-group">
-              <input class="form-input weather-search" type="text" id="search-input" placeholder="London"
-                aria-labelledby="form-heading" aria-controls="today forecast" />
-              <div class="input-group-append">
-                <button type="submit" class="btn search-button" id="search-button" aria-label="submit search">
-                  Search
-                </button>
-                <hr class="hr weather-hr" />
-                <ul class="search-history">
-                </ul>
-              </div>
-            </aside>
-            <main class="page-main col-lg-9 pb-3">
-              <div class="content hide" id="content-weather">
-                <div class="todays-weather">
-                  <h3>Current Weather</h3>
-                  <div class="city-date-wrapper">
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">City Date</h5>
-                        <p class="card-text"> Temp: </p>
-                        <p class="card-text"> Wind: </p>
-                        <p class="card-text"> Humidity: </p>
-                      </div>
-                    </div>
-                   
-                  </div>
-                  <img class="today-wicon" src="" alt="">
-                  <h3>5 Day Weather Forecast</h3>
-                  <div class="row mt-3" id="forecast">
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">Day 1</h5>
-                        <p class="card-text"> Temp: </p>
-                        <p class="card-text"> Wind: </p>
-                        <p class="card-text"> Humidity: </p>
-                      </div>
-                    </div>
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">Day 2</h5>
-                        <p class="card-text"> Temp: </p>
-                        <p class="card-text"> Wind: </p>
-                        <p class="card-text"> Humidity: </p>
-                      </div>
-                    </div>
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">Day 3</h5>
-                        <p class="card-text"> Temp: </p>
-                        <p class="card-text"> Wind: </p>
-                        <p class="card-text"> Humidity: </p>
-                      </div>
-                    </div>
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">Day 4</h5>
-                        <p class="card-text"> Temp: </p>
-                        <p class="card-text"> Wind: </p>
-                        <p class="card-text"> Humidity: </p>
-                      </div>
-                    </div>
-                    <div class="card" style="width: 18rem;">
-                      <div class="card-body">
-                        <h5 class="card-title">Day 5</h5>
-                        <p class="card-text"> Temp: </p>
-                        <p class="card-text"> Wind: </p>
-                        <p class="card-text"> Humidity: </p>
-                      </div>
-                    </div>
-                </div>
-                </div>
-              </div>
-            </main>
-              </div>
-            </div>
-          </div>
-        </form>
-        <div class="list-group" id="history"></div>
-      </aside>
-      <div class="col-lg-9 pb-3">
-        <section id="today" class="mt-3" role="region" aria-live="polite"></section>
-        <section id="forecast" class="row mt-3" role="region" aria-live="polite"></section>
+        <input id="city-search" type="text" placeholder="Enter a city name">
+        <button id="submit-city">Search</button>
+        <ul class="search-history">
+
+        </ul>
       </div>
-    </div>
-  </div>
-  </div>
+    </aside>
+    <main class="page-main">
+      <!-- <div class="empty">
+        <h2>👈 Enter a city to find out the current weather and the next 5 day forecast</h2>
+      </div> -->
+      <div class="content hide" id="content-weather">
+        <div class="todays-weather">
+          <div class="city-date-wrapper">
+            <h2></h2>
+            <h3 id="today"></h3>
+          </div>
+          <img class="today-wicon" src="" alt="">
+          <p class="today-data">
+            Temp: <span class="temp"></span> <br>
+            Wind: <span class="wind"></span><br>
+            Humidity: <span class="humidity"></span>
+          </p>
+        </div>
+        <div class="forecast">
+          <h3>5 days Forecast</h3>
+          <div id="forecast-container">
+
+          </div>
+        </div>
+      </div>
+    </main>
 
   <!-- Moment.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-  <script src= "assets/js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
