@@ -6,10 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style> @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap'); </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
 
-  <title>Weather Dashboard</title>
+
+
+  <title>Weather Forecast Dashboard</title>
 </head>
 
 <body>
@@ -19,20 +22,12 @@
     </header>
     <aside class="page-leftbar">
       <div class="content">
-        <h2 class="side-bar">
-          Search for a City:
-        </h2>
         <input id="city-search" type="text" placeholder="Enter a city name">
         <button id="submit-city">Search</button>
-        <ul class="search-history">
-
-        </ul>
+        <ul class="search-history"></ul>
       </div>
     </aside>
     <main class="page-main">
-      <!-- <div class="empty">
-        <h2>👈 Enter a city to find out the current weather and the next 5 day forecast</h2>
-      </div> -->
       <div class="content hide" id="content-weather">
         <div class="todays-weather">
           <div class="city-date-wrapper">
@@ -47,7 +42,7 @@
           </p>
         </div>
         <div class="forecast">
-          <h3>5 days Forecast</h3>
+          <h3>5 Day Weather Forecast</h3>
           <div id="forecast-container">
 
           </div>
@@ -59,6 +54,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
   <script src="./assets/js/script.js"></script>
 </body>
 

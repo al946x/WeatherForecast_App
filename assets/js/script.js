@@ -1,212 +1,159 @@
-  var apiKey = '2ddec8010010a68ba6398027239255a3';
-  var searchInput = $('#city-search');
-  var submitCity = $('#submit-city');
 
-  var todayIcon = $('.today-wicon');
-  var todayDate = $('#today');
-  var todayTemp = $('.today-data .temp');
-  var todayWind = $('.today-data .wind');
-  var todayHumidity = $('.today-data .humidity');
+//define global variables
+var weatherApiKey = '2ddec8010010a68ba6398027239255a3';
+var citySearchInput = $('#city-search');
+var submitWeatherCity = $('#submit-city');
 
-  var forecastWrapper = $('#forecast-container');
+var currentWeatherIcon = $('.today-wicon');
+var currentWeatherDate = $('#today');
+var currentWeatherTemp = $('.today-data .temp');
+var currentWeatherWind = $('.today-data .wind');
+var currentWeatherHumidity = $('.today-data .humidity');
 
-  var searchHistory = $('.search-history');
-  var localSearches = [];
-  var cityListed = $('.city-explored');
+var fiveDayForecastContainer = $('#forecast-container');
 
-  var city = '';
+var weatherSearchHistory = $('.search-history');
+var exploredCities = $('.city-explored');
 
-  var todayCity = $('.todays-weather h3');
+selectedCity = citySearchInput.val().toUpperCase();
+var currentWeatherApi = `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity}&appid=${weatherApiKey}&units=metric`;
+var fiveDayForecastApi = `https://api.openweathermap.org/data/2.5/forecast?q=${selectedCity}&appid=${weatherApiKey}`;
+// var currentWeatherApi = `https://api.openweathermap.org/data/2.5/weather?q=${selectedCity}&appid=${weatherApiKey}&units=metric`;
+// var fiveDayForecastApi = `https://api.openweathermap.org/data/2.5/forecast&appid=${weatherApiKey}`;
 
-  var emptyContent = $('.empty');
+var currentWeatherCity = $('.todays-weather h2');
 
-  var contentWeather = $('#content-weather');
+var noContent = $('.empty');
 
-  $(document).ready(function() {
+var weatherContent = $('#content-weather');
 
-  // Hide content section
-  contentWeather.addClass("hide");
+//listen for click on search button
+submitWeatherCity.on("click", function() {
+fiveDayForecastContainer.html('');
+selectedCity = citySearchInput.val().toUpperCase();
+displayWeatherDashboard(selectedCity);
 
-  // When form is submitted, prevent default and search weather
-  $("#search-form").submit(function (event) {
-    event.preventDefault();
-    searchWeather();
-  }) } );
+});
 
-  function searchWeather() {
-    searchInput = $("#search-input").val().trim();
-    // Clear input after search
-    $("#search-input").val("");
+var exploredCities = $('.city-explored');
 
-    // Check if search input is not empty
-    if (searchInput !== "") {
-      // Save search to local storage
-      var history = JSON.parse(localStorage.getItem("history")) || [];
-      addToHistory(searchInput);
-      localStorage.setItem("history", JSON.stringify(history));
-      // Render search history
-      renderHistory(history);
-      
-      // API call to retrieve current weather
-      var queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput}&appid=${apiKey}&units=imperial`;
+//function to get forecast for selected city
 
-      $.ajax({
-        url: queryURL,
-        method: "GET",
-      })
-        .then(function(response) {
-          // console.log(response);
-          // Set city and date in header
-          $("#city-date").text(response.name + " " + moment().format("MM/DD/YYYY"));
-          // Set temperature
-          $("#temp").text("Temperature: " + response.main.temp + " °F");
-          // Set humidity
-          $("#humidity").text("Humidity: " + response.main.humidity + "%");
-          // Set wind speed
-          $("#wind").text("Wind Speed: " + response.wind.speed + " MPH");
-          // Set weather icon
-          var icon = response.weather[0].icon;
-          var iconURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
-          $("#today-wicon").attr("src", iconURL);
-        })
-        .catch(function (error) {
-          // console.log(error);
-        }) } };
+function displayWeatherDashboard(selectedCity) { 
 
-      // API call to retrieve 5-day forecast
-      var forecastQueryURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+// $.get(currentWeatherApi)
+$.ajax({
+    url: currentWeatherApi,
+    method: "GET"
+  }).then(function(response) {
+    console.log(response);
+  });
+}
+
+// .catch(function(event) {
+//     if(event.status == 404) {
+//         alert ('This city could not be found');
+//         return;
+
+    //  }})
+
+// .then(function(currentData) {
     
-      // `https://api.openweathermap.org/data/2.5/forecast?q=${searchInput}&appid=${apiKey}&units=imperial`;
+//     var lat = currentData.coord.lat;
+//     var lon = currentData.coord.lon;
+//     var icon = currentData.weather[0].icon;
+//     currentWeatherCity.text(selectedCity);
+//     currentWeatherDate.text(moment().format('DD/MM/YY'));
+//     currentWeatherTemp.text(`${Math.round(currentData.main.temp)} C°`);
+//     currentWeatherWind.text(`${Math.round((currentData.wind.speed)*1.6)} Km/H`);
+//     currentWeatherHumidity.text(`${currentData.main.humidity}%`);
 
-      $.ajax({
-        url: forecastQueryURL,
-        method: "GET",
-      })
-        .then(function (response) {
-          console.log(response);
-          // Clear previous forecast
-          $("#forecast").empty();
-          // Loop through each day in forecast
-          for (var i = 0; i < response.list.length; i++) {
-            // Only get forecast for 3 PM
-            if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
-              // Create and store card
-              forecastWrapper.append(`
-              <div class="daily-forecast">
-              <img src="http://openweathermap.org/img/wn/${forecastIcon}@2x.png">
-              <h4>${forecastDay}</h4>
-              <p class="forecast-data">
-                Temp: ${Math.round(forecastTemp)} C° <br>
-                Wind: ${Math.round((forecastWind)*1.6)} KPH<br>
-                Humidity: ${forecastHumidity}%
-              </p>
-           </div>
+//     $(currentWeatherIcon).attr('src', `https://openweathermap.org/img/wn/${icon}@2x.png`);  
+//  } );
+    // $.get(fiveDayForecastApi)
+    // .then(function(weatherData){
+      
+    //   var fiveDayForecast = [];
+    //   fiveDayForecast.push(weatherData.list);
+
+    //   $(fiveDayForecast[0]).each(function(i, day){
+
+    //       var dayTime = day.dt_txt;
+
+    //       if(dayTime.includes('15:00')){
+    //           var icon = day.weather[0].icon
+    //           var forecastDay = dayTime.split(' ');
+    //           var date= moment(forecastDay[0], 'YYYY MM DD').format('DD/MM/YY');
+    //           var temperature = day.main.temp;
+    //           var windSpeed = day.wind.speed;
+    //           var humidity = day.main.humidity;
               
-              `)  };
-          }
-          });
+    //           fiveDayForecastContainer.append(`
+    //           <div class="daily-forecast">
+    //           <img src="https://openweathermap.org/img/wn/${icon}@2x.png">
+    //           <h4>${date}</h4>
+    //           <p class="forecast-data">
+    //             Temp: ${Math.round(temperature)} C° <br>
+    //             Wind: ${Math.round((windSpeed)*1.6)} KPH<br>
+    //             Humidity: ${humidity}%
+    //           </p>
+    //        </div>
+    //           `);
+    //       }
+    //   });
+    //  } )
+      
+    //   noContent.addClass('hide');
+    //   weatherContent.removeClass('hide');
+    //   citySearchInput.val('');
+    //   fiveDayForecastContainer.html('');
+    //   };
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // global variables declared 
-//   var apiKey = '07d2b35b0cfc6919c8c403dd4beaa059';
-//   var searchInput = $('#city-search');
-//   var submitCity = $('#submit-city');
-
-//   var todayIcon = $('.today-wicon');
-//   var todayDate = $('#today');
-//   var todayTemp = $('.today-data .temp');
-//   var todayWind = $('.today-data .wind');
-//   var todayHumidity = $('.today-data .humidity');
-
-//   var forecastWrapper = $('#forecast-container');
-
-//   var searchHistory = $('.search-history');
-//   var localSearches = [];
-//   var cityListed = $('.city-explored');
-
-//   var city = '';
-  
-//   // var weatherURL = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon${lon}&appid=${apiKey}`;
+    
 
 
-//   var todayCity = $('.todays-weather h3');
+//listen for enter key event
 
-//   var emptyContent = $('.empty');
-
-//   var contentWeather = $('#content-weather');
-
-
-// var searchBtn = document.getElementById('search-button')
-
-
-//
-
-
-
-// //event listener for click on search button
-
-//   searchBtn.addEventListener('click', validInput);
-
-//   function validInput(e) {
-//     if (!searchInput.value) {
-//       return
-//     }
-//     e.preventDefault();
-//     var search = searchInput.value.trim();
-//     getCoord(search);
+// function fetchWeather(event){
+//       var keyCode = event.keyCode;
+//       if (keyCode === 13){      
+//           fiveDayForecastContainer.html('');
+//           selectedCity = searchInput.val().toUpperCase(); 
+//           weatherDashboard(selectedCity);
+//           searchSideBar(selectedCity);
+//       }
 //   }
 
-//   //function to get the weather data
-//   function getCoord(search) {
-//   var geo = `http://api.openweathermap.org/geo/1.0/direct?q=${search}&limit=5&appid=${apiKey}`
-//   $.get(geo) }
 
+//   function init(){
+//     searchInput.keydown(fetchWeather)
+// }
 
- 
-  // function inputSubmitted(cityName) {
-  // $.get(`currentURL + q=${cityName}`)
-  //   .then(function (currentData) {
-  //     console.log(`
-  //       _____Current Conditions_____
-  //       Temp: ${Math.round(currentData.main.temp)} Cº
-  //       Wind: ${currentData.wind.speed} M/S
-  //       Humidity: ${currentData.main.humidity}%
-  //       IconURL: ${iconURL + currentData.weather[0].icon}.png
-  //     `);
+// init();
 
-  //     $.get(foreCastURL + `lat=${currentData.coord.lat}&lon=${currentData.coord.lon}`)
-  //       .then(function (forecastData) {
-  //         for (var castObj of forecastData.list) {
-  //               console.log(`${iconURL + castObj.weather[0].icon}.png`); 
-  //         }
+// get data from local storage and display search history
 
-  //       });
-  //   });
-  //   }
-
-  //   // get users current location 
-
-  //   function getLocation() {
-  //     navigator.geolocation.getCurrentPosition(function (data) {
-  //       var lat = data.coords.latitude;
-  //       var lon = data.coords.longitude;
-  //       console.log(lat, lon);
-  //     })
-  //   }
-
-  //   getLocation();
-
+// if(localStorage.getItem('exploredCities')){
+//     exploredCities.html(localStorage.getItem('exploredCities'));
+    
+//     }
+    
+//     // add search history to local storage
+    
+//     exploredCities.on('click', 'p', function(){
+//     fiveDayForecastContainer.html('');
+//     var city = $(this).text();
+//     weatherDashboard(city);
+//     });
+    
+    // store the city search history
+    
+    // function storeCity(selectedCity){
+    // var cityList = localStorage.getItem('exploredCities');
+    // if(cityList){
+    // cityList = cityList + `${city}`;
+    // localStorage.setItem('exploredCities', cityList);
+    // } else {
+    // localStorage.setItem('exploredCities', `${city}`);
+    // }
+    // };
