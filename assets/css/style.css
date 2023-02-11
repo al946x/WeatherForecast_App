@@ -105,7 +105,10 @@
   
   .page-main h3{
     margin: 20px 0;
-    font-size: 21px;
+    font-size: 22px;
+    display:flex;
+    align-items: center;
+    justify-content: space-around;
   }
   
   .page-main .empty{
@@ -120,7 +123,9 @@
     background-repeat: no-repeat;
     padding: 15px;
   }
+
   
+
   .page-main #forecast-container{
     display: flex;
     flex-wrap: wrap;
@@ -134,10 +139,15 @@
   }
   
   .daily-forecast h4{
-    font-size: 15px;
+    font-size: 20px;
     margin-bottom: 10px;
-  }
   
+  }
+
+  .forecast-data{
+    font-size: 15px;
+
+  }
   
   .content {
     font-weight: 600;
