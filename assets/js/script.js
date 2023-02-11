@@ -55,6 +55,8 @@ $.ajax({
     currentWeatherHumidity.text(`${currentData.main.humidity}%`);
 
     $(currentWeatherIcon).attr('src', `https://openweathermap.org/img/wn/${icon}@2x.png`);  
+
+    
   });
 }
 
@@ -95,3 +97,4 @@ $.ajax({
       });
      } )
 };
+
